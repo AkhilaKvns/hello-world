@@ -1,0 +1,154 @@
+GRAPHICS IN R:
+-----------------
+-->We can create plots, replicate and modify plots inside R.
+-->The package used for the plots is graphics package.
+
+*The two main functions are:
+1. plot()
+2. hist()
+
+Using plot():
+--------------
+-->The plot() function is generic i.e it can plot many different things.
+--> Depending on the different inputs, different plots are generated.
+
+For eg:
+--------
+-->Categorical
+
+> friends <- c("akhila","sai", "neha", "tridhara", "gita", "sita", "rani","latha", "OOha", "ramya")
+> age <- c(18,19,20,21,32,17,28,12,45,23)
+> Year <- c(1998,1999,1997,1996,1986,2000,1990,2005,1975,1992)
+> df <- data.frame(friends,age,Year)
+> df
+            friends  	age 	Year
+1           akhila      	18 	1998
+2           sai         	19 	1999
+3           neha      	 20 	1997
+4           tridhara      	21 	1996
+5           gita        	32 	1986
+6           sita         	17 	2000
+7           rani         	28 	1990
+8           latha        	12 	2005
+9           Ooha      	45 	1975
+10         ramya      	23 	1992
+> plot(df$friends)
+
+-->Numerical
+
+> plot(df$age)
+> plot(df$Year)
+ 
+*We can also use 2x numerical or categorical plots.
+
+For eg:
+--------
+> friends <- c("akhila","sai", "neha", "tridhara", "gita", "sita", "rani","latha", "OOha", "ramya")
+> city <- c("Vijayawada", "guntur","hyderabad","Vishakapatnam", "guntur", "Bangalore", "hyderabad", "Kakinada", "vijayawada","Ongole")
+> age <- c(18,19,20,21,32,17,28,12,45,23)
+> Year <- c(1998,1999,1997,1996,1986,2000,1990,2005,1975,1992)
+> df <- data.frame(friends,city,age,Year)
+> df
+    	friends 	         	city	 	age	 Year
+1    	akhila    		Vijayawada  	18 	1998
+2       	sai        		guntur  		19 	1999
+3      	neha    		hyderabad 	 	20 	1997
+4  	tridhara 		Vishakapatnam 	21 	1996
+5      	gita        		guntur  		32 	1986
+6      	sita       		Bangalore  		17 	2000
+7      	rani     		hyderabad  		28 	1990
+8     	latha     		Kakinada  		12 	2005
+9     	Ooha    		vijayawada  	45 	1975
+10   	ramya        		Ongole  		23 	1992
+
+> plot(df$friends,df$city)
+> plot(df$age,df$Year)
+
+Using hist():
+--------------
+-->It is the visual representation of distribution of all datasets by placing all values in bins.
+--> Plots the frequency of the bins.
+
+For eg:
+--------
+> guntur_obs <- df$city=="guntur"
+> guntur <- df[guntur_obs,]
+> hist(guntur$age)
+> hist(guntur$Year)
+
+*We can increase the number of bins in histogram by using the breaks argument.
+
+For eg:
+--------
+> hist(guntur$age, breaks=5)
+> hist(guntur$Year, breaks=10)
+
+-->We also have other graphic functions like :
+
+Bar plot:
+----------
+> barplot(df$age)
+
+Box plot:
+----------
+> boxplot(df$Year)
+
+Pairs:
+------
+> pairs(df)
+
+CUSTOMIZING PLOTS:
+-----------------------------
+-->We can customize our plots by giving labels, colors etc.
+
+For eg:
+--------
+> plot(df$age, df$Year, xlab="Age",ylab="Year",main="Details",type ="o",col="red")
+
+> plot(df$age, df$Year, xlab="Age",ylab="Year",main="Details",type ="l",col="blue")
+
+More graphical parameters:
+--------------------------------
+> plot(df$age, df$Year, xlab="Age",ylab="Year",main="Details",type ="l",col="green", col.main="pink",cex.main=2.0,lty=10,pch=7)
+
+Using par():
+-------------
+-->The par() function is mainly used for listing all the parameters.
+--> It is for plotting mutiple plots.
+
+For eg:
+--------
+> friends <- c("akhila","sai", "neha", "tridhara", "gita", "sita", "rani","latha", "OOha", "ramya")
+> city <- c("Vijayawada", "guntur","hyderabad","Vishakapatnam", "guntur", "Bangalore", "hyderabad", "Kakinada", "vijayawada","Ongole")
+> Blood_group <- c("O","A","B","A","AB","O","B","AB","A","B")
+> date <- c(15,11,02,28,14,30,01,09,19,22)
+> age <- c(18,19,20,21,32,17,28,12,45,23)
+> Year <- c(1998,1999,1997,1996,1986,2000,1990,2005,1975,1992)
+> df <- data.frame(friends,city,Blood_group,date,age,Year)
+> df
+   	friends          	   city	 	Blood_group	date 	age 	Year
+1    	akhila   		Vijayawada          	      O   		15 	 18 	1998
+2       	sai       	 	guntur           	      A   		11  	 19 	1999
+3      	neha     		hyderabad           	      B    		2  	 20 	1997
+4  	tridhara 		Vishakapatnam         	      A  	 	28 	 21	1996
+5      	gita        		guntur          	      AB   		14  	 32 	1986
+6      	sita     		Bangalore           	      O   		30  	 17 	2000
+7      	rani     		hyderabad           	      B    		1  	 28 	1990
+8     	latha      		Kakinada          	      AB    		9  	 12 	2005
+9      	OOha    		vijayawada           	      A   		19 	 45 	1975
+10    	ramya        		Ongole           	      B   		22  	 23 	1992
+
+> par(mfrow=c(2,2))
+> plot(df$age,df$Year)
+> plot(df$friends,df$Blood_group)
+> plot(df$date,df$age)
+> plot(df$city,df$friends)
+
+-->We can also use mfcol parameter for column wise.
+
+> par(mfcol=c(1,4))
+> plot(df$age,df$Year)
+> plot(df$friends,df$Blood_group)
+> plot(df$date,df$age)
+> plot(df$city,df$friends)
+

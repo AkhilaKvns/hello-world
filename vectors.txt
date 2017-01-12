@@ -1,0 +1,714 @@
+		
+				R- PROGRAMMING
+				--------------------------
+
+The basic syntax for the creation of a variable is 
+	Variablename <-- Value
+For eg: 
+> a <- 10
+> a
+[1] 10
+
+DATA TYPES
+-----------------
+
+-->We have different datatypes like logical, numeric, character.
+-->We use a function class() for knowing the type of the variable.
+For eg:
+--------
+> class(TRUE)	> class(20)		> class("Akhila")
+ [1] "logical"	[1] "numeric"	[1] "character"
+
+VECTORS
+-------------
+
+--> Sequence of data elements of the same basic data types.
+--> We use the function c() for creating a vector.
+For eg:
+--------
+> c("akhila","sai", "neha", "tridhara")
+[1] "akhila"   "sai"      "neha"     "tridhara"
+ 
+We can also assign the vectors by the following:
+
+> friends <- c("akhila","sai", "neha", "tridhara")
+> friends
+[1] "akhila"   "sai"      "neha"     "tridhara"
+
+Naming the vectors:
+-----------------------
+--> We use the names() function for naming the vectors.
+For eg:
+--------
+> age <- c(18,19,20,21)
+> friends <- c("akhila","sai", "neha", "tridhara")
+> names(age) <- friends
+> age
+  akhila      sai     neha  tridhara 
+      18       19       20       21 
+
+Length of the vectors:
+-------------------------
+--> The length of the vectors can be calculated by using the length() function.
+For eg:
+--------
+> length(friends)
+[1] 4
+> length(age)
+[1] 4
+
+Vector Calculus:
+-------------------
+--> We can also perform some computations on vectors.
+For eg:
+--------
+> earnings <- c(50,100,30)
+> earnings * 3
+[1] 150 300  90
+> earnings - 3
+[1] 47 97 27
+> earnings + 10
+[1]  60 110  40
+> earnings / 10
+[1]  5 10  3
+
+* All these computations takes place element-wise.
+eg 2:
+-----
+> earnings <- c(50,100,30)
+> expenses <- c(30,40,10)
+> earnings - expenses
+[1] 20 60 20
+
+Subsetting Vectors:
+----------------------
+--> Subset by index
+
+For eg:
+--------
+> friends <- c(akhila = 18,sai = 19,neha = 20,tridhara = 21)
+> friends[2]
+sai 
+ 19 
+> friends[4]
+tridhara 
+      21 
+
+--> Subset by name
+
+For eg:
+--------
+> friends <- c(akhila = 18,sai = 19,neha = 20,tridhara = 21)
+> friends["akhila"]
+akhila 
+    18 
+> friends["neha"]
+neha 
+  20 
+
+--> Subset multiple elements
+
+For eg:
+--------
+> best_friends <- friends[c(2,3)]
+> best_friends
+ sai neha 
+  19   20 
+> best_friends <- friends[c(1,4)]
+> best_friends
+  akhila tridhara 
+      18       21 
+
+--> Subsetting all expect few
+
+For eg:
+--------
+>friends[-1]
+     sai     neha tridhara 
+      19       20       21 
+* Here - sign indicates that expect one everything else is included.
+eg 2:
+-----
+> friends[-c(2,4)]
+akhila   neha 
+    18     20 
+* The (-) sign does not work for names.
+
+--> Subset using logical vectors
+
+For eg:
+--------
+> friends[c(TRUE,FALSE,TRUE,FALSE)]
+akhila   neha 
+    18     20 
+* If the number of boolean is less than the actual arguments then the 
+  vector is recycled up to the length  of the vector.
+
+For eg:
+--------
+> friends[c(FALSE,TRUE)]
+     sai tridhara 
+      19       21 
+
+Sorting of vectors:
+---------------------
+--> For sorting the vectors we use sort() function which by default sorts the elements in ascending order.
+
+For eg:
+--------
+> a <- c(2,4,7,-1,0,9,11,-17,21)
+> sort(a)
+[1] -17  -1   0   2   4   7   9  11  21
+
+> b <- c("orange","apple","custurd","grape","banana","pineapple")
+> sort(b)
+[1] "apple"     "banana"    "custurd"   "grape"     "orange"    "pineapple"
+
+For the decreasing order, we use
+
+> sort(b, decreasing=T)
+[1] "pineapple" "orange"    "grape"     "custurd"   "banana"    "apple"  
+
+  
+MATRICES
+--------------
+--> It is a sequence of data elements arranged into rows and columns.
+--> It is 2-Dimensional.
+--> For creating a matrix, we use matrix function.
+
+For eg:
+--------
+> matrix(1:6, nrow=3, ncol=2)
+     [,1] [,2]
+[1,]    1    4
+[2,]    2    5
+[3,]    3    6
+
+* To set the elements 1 to 6 row wise, we can use
+> matrix(1:6, nrow=3, ncol=2, byrow=TRUE)
+     [,1] [,2]
+[1,]    1    2
+[2,]    3    4
+[3,]    5    6
+
+Recycling:
+------------
+--> R fills up the rows and columns repeatedly if the numbers of elements given are not sufficient.
+
+For eg:
+--------
+> matrix(1:3, nrow=2, ncol=3)
+     [,1] [,2] [,3]
+[1,]    1    3    2
+[2,]    2    1    3
+
+* If the matrix is filled with a multiple that cannot fit into matrix it gives a warning.
+
+For eg:
+--------
+> matrix(1:4, nrow=2, ncol=3)
+     [,1] [,2] [,3]
+[1,]    1    3    1
+[2,]    2    4    2
+Warning message:
+In matrix(1:4, nrow = 2, ncol = 3) :
+  data length [4] is not a sub-multiple or multiple of the number of columns [3]
+
+rbind() & cbind():
+--------------------
+--> Apart from matrix() function, we can use rbind() and cbind() easily in some cases.
+
+For eg:
+--------
+> rbind(1:6,1:6)
+     [,1] [,2] [,3] [,4] [,5] [,6]
+[1,]    1    2    3    4    5    6
+[2,]    1    2    3    4    5    6
+
+> cbind(1:6,1:6)
+     [,1] [,2]
+[1,]    1    1
+[2,]    2    2
+[3,]    3    3
+[4,]    4    4
+[5,]    5    5
+[6,]    6    6
+
+--> To add a row to the existing matrix, we do the following
+
+> m <- matrix(1:6,byrow=TRUE, nrow=2)
+> rbind(m,7:9)
+     [,1] [,2] [,3]
+[1,]    1    2    3
+[2,]    4    5    6
+[3,]    7    8    9
+
+-->Similarly, for adding a column to the existing matrix, we do the following
+
+> m <- matrix(1:6,byrow=TRUE, nrow=3)
+> cbind(m,7:9)
+     [,1] [,2] [,3]
+[1,]    1    2    7
+[2,]    3    4    8
+[3,]    5    6    9
+
+Naming a matrix:
+--------------------
+--> We use rownames() and colnames() to name a matrix.
+
+For eg:
+--------
+> n <- matrix(1:8, byrow=T, nrow=2)
+> n
+     [,1] [,2] [,3] [,4]
+[1,]    1    2    3    4
+[2,]    5    6    7    8
+> rownames(n) <- c("r1", "r2")
+> colnames(n) <- c("C1","C2","C3","c4")
+> n
+   C1 C2 C3 c4
+r1  1  2  3  4
+r2  5  6  7  8
+
+--> We can also name the matrices using list.
+ 
+For eg:
+--------
+> rownames= c("r1","r2")
+> colnames= c("c1","c2","c3")
+> matrix(c(1,3,5,7,8,9), byrow=T, nrow=2, dimnames= list(rownames,colnames))
+   c1 c2 c3
+r1  1  3  5
+r2  7  8  9
+
+Subsetting Matrices:
+-----------------------
+--> We can subset a matrix by the following
+
+> m <- matrix(sample(1:15,12), nrow=3, byrow=TRUE)
+> m
+     [,1] [,2] [,3] [,4]
+[1,]    4    7   10   12
+[2,]    3   13    8    2
+[3,]   15   14    6    5
+> m[1,3]
+[1] 10
+> m[2,2]
+[1] 13
+
+Subset Column or Row:
+----------------------------
+--> We can subset a whole column or row by the following
+
+For row:
+---------
+> m
+     [,1] [,2] [,3] [,4]
+[1,]    4    7   10   12
+[2,]    3   13    8    2
+[3,]   15   14    6    5
+
+> m[1,]
+[1]  4  7 10 12
+
+For column:
+--------------
+> m
+     [,1] [,2] [,3] [,4]
+[1,]    4    7   10   12
+[2,]    3   13    8    2
+[3,]   15   14    6    5
+
+> m[,3]
+[1] 10  8  6
+
+Subsetting multiple elements:
+----------------------------------
+> m
+     [,1] [,2] [,3] [,4]
+[1,]    4    7   10   12
+[2,]    3   13    8    2
+[3,]   15   14    6    5
+
+> m[2,c(1,3)]
+[1] 3 8
+
+> m[c(1,2),c(3,2)]
+        [,1] [,2]
+[1,]   10    7
+[2,]    8   13
+
+Subset by name:
+------------------
+> rownames= c("r1","r2")
+> colnames= c("c1","c2","c3")
+> m <-matrix(c(1,3,5,7,8,9), byrow=T, nrow=2, dimnames= list(rownames,colnames))
+> m
+   c1 c2 c3
+r1  1  3  5
+r2  7  8  9
+> m["r1", "c2"]
+[1] 3
+
+> m[,"c3"]
+r1 r2 
+ 5  9 
+
+Subset by logical vectors:
+-----------------------------
+> m <- matrix(c(1,3,5,7,9,11), nrow=3 , byrow=T)
+> m
+     [,1] [,2]
+[1,]    1    3
+[2,]    5    7
+[3,]    9   11
+> m1 <- m[c(T,T,F),c(T,F)]
+> m1
+[1] 1 5
+
+> m2 <- m[c(T,F,F),c(T,T)]
+> m2
+[1] 1 3
+
+Matrix Arithmetic:
+---------------------
+--> It is computated element-wise
+
+For eg:
+--------
+> a1 <- matrix(1:6, nrow=2, byrow=T)
+> a1
+     [,1] [,2] [,3]
+[1,]    1    2    3
+[2,]    4    5    6
+> a2 <- matrix(c(2,6,11,0,9,22),nrow=2, byrow=T)
+> a2
+     [,1] [,2] [,3]
+[1,]    2    6   11
+[2,]    0    9   22
+
+Matrix Addition:
+-------------------
+> a1+a2
+     [,1] [,2] [,3]
+[1,]    3    8   14
+[2,]    4   14   28
+
+Matrix Subtraction:
+----------------------
+> a1-a2
+     [,1] [,2] [,3]
+[1,]   -1   -4   -8
+[2,]    4   -4  -16
+
+Matrix Multiplication:
+--------------------------
+> a1*a2
+     [,1] [,2] [,3]
+[1,]    2   12   33
+[2,]    0   45  132
+
+Matrix Division:
+-------------------
+> a1/a2
+     [,1]      [,2]      [,3]
+[1,]  0.5 0.3333333 0.2727273
+[2,]  Inf 0.5555556 0.2727273
+
+Matrix Transpose:
+---------------------
+> t(a1)
+     [,1] [,2]
+[1,]    1    4
+[2,]    2    5
+[3,]    3    6
+
+> t(a2)
+     [,1] [,2]
+[1,]    2    0
+[2,]    6    9
+[3,]   11   22
+
+Creation of a matrix from the standard normal distribution:
+---------------------------------------------------------------------
+> a3 <- matrix(rnorm(10),5)
+> a3
+           [,1]       [,2]
+[1,]  0.4001181  0.9302214
+[2,] -0.3933435 -0.2508206
+[3,] -0.3544061 -0.1035648
+[4,] -0.9961986  0.2089864
+[5,] -0.9384593  0.8570796
+
+FACTORS:
+-------------
+--> These are the categorical variables.
+--> They take only limited number of different values.
+-->We use factor() function to convert a vector into factor.
+
+For eg:
+--------
+> colors <- c("white","black","blue","blue", "pink","black","yellow","white","pink")
+> color_factor <- factor(colors)
+> color_factor
+[1] white  black  blue   blue   pink   black  yellow white  pink  
+Levels: black blue pink white yellow
+
+*R sorts the levels alphabatically
+
+> str(color_factor)
+ Factor w/ 5 levels "black","blue",..: 4 1 2 2 3 1 5 4 3
+
+*With this, we can use less space for longer strings.
+
+Changing the order of levels:
+---------------------------------
+--> We can change the order of the levels by the following
+
+> colors <- c("white","black","blue","blue", "pink","black","yellow","white","pink")
+> color_factors <- factor(colors, levels=c("blue","white","yellow","black","pink"))
+> color_factors
+[1] white  black  blue   blue   pink   black  yellow white  pink  
+Levels: blue white yellow black pink
+
+Renaming the factor levels:
+--------------------------------
+-->We can rename the factor levels either by using levels() funtion or by using labels.
+
+For eg:
+--------
+> levels(color_factors) <- c("c_blue","c_white","c_yellow","c_black","c_pink")
+> color_factors
+[1] c_white  c_black  c_blue   c_blue   c_pink   c_black  c_yellow c_white  c_pink  
+Levels: c_blue c_white c_yellow c_black c_pink
+
+> factor(colors, labels= c("c_blue","c_white","c_yellow","c_black","c_pink"))
+[1] c_black  c_blue   c_white  c_white  c_yellow c_blue   c_pink   c_black c_yellow
+Levels: c_blue c_white c_yellow c_black c_pink
+
+Nominal & Ordinal:
+-----------------------
+--> The categorical variables are divided into nominal and ordinal.
+--> The nominal does not have any order where as the ordinal has an order.
+
+For eg:
+--------
+-->Nominal
+
+> colors <- c("white","black","blue","blue", "pink","black","yellow","white","pink")
+> color_factor <- factor(colors)
+> color_factor[1] < color_factor[2]
+[1] NA
+Warning message:
+In Ops.factor(color_factor[1], color_factor[2]) :
+  ‘<’ not meaningful for factors
+
+-->Ordinal
+
+> size <- c("S","L","M","XL","M", "XS", "L", "S")
+> size_factor <- factor(size, ordered=TRUE, levels=c("XS","S","M","L","XL"))
+> size_factor
+[1] S  L  M  XL M  XS L  S 
+Levels: XS < S < M < L < XL
+
+LISTS:
+-------
+--> Lists contain all kinds of R objects.
+-->For creating lists, we use lists() function.
+
+For eg:
+-------
+> list("Akhila",20,1996)
+[[1]]
+[1] "Akhila"
+
+[[2]]
+[1] 20
+
+[[3]]
+[1] 1996
+
+Naming lists:
+---------------
+--> For naming the lists we use the names() function.
+
+For eg:
+--------
+> details <- list("Akhila",20,1996)
+> names(details) <- c("Name:", "Age:", "Year:")
+> details
+$`Name:`
+[1] "Akhila"
+
+$`Age:`
+[1] 20
+
+$`Year:`
+[1] 1996
+
+*We can also assign the names directly for the list.
+eg 2:
+-----
+> details <- list(Name = "Akhila", Age = 20, Year = 1996)
+> str(details)
+List of 3
+ $ Name: chr "Akhila"
+ $ Age : num 20
+ $ Year: num 1996
+
+List in list:
+------------
+> details <- list(Name = "Akhila", Age = 20, Year = 1996)
+> details_1 <- list(Name = "Tridhara", Age = 21, Year = 1995, similar=details)
+> str(details_1)
+List of 4
+ $ Name   : chr "Tridhara"
+ $ Age    : num 21
+ $ Year   : num 1995
+ $ similar:List of 3
+  ..$ Name: chr "Akhila"
+  ..$ Age : num 20
+  ..$ Year: num 1996
+
+Subsetting List:
+------------------
+-->We can subset lists using single braces as well as double braces.
+-->Using double braces [[]] extracts a single element.
+
+For eg:
+--------
+-->Single braces
+
+> details[1]
+$Name
+[1] "Akhila"
+
+> details[3]
+$Year
+[1] 1996
+
+-->Double braces
+
+> details[[1]]
+[1] "Akhila"
+
+> details[[2]]
+[1] 20
+
+*For multiple subsetting we cannot use double braces.
+
+Subset by name:
+------------------
+
+> details["Name"]
+$Name
+[1] "Akhila"
+
+> details["Age"]
+$Age
+[1] 20
+
+> details[["Year"]]
+[1] 1996
+
+Subset by logicals:
+---------------------
+--> Subset by logicals can be done only through single braces[].
+
+For eg:
+--------
+> details[c(TRUE,FALSE,TRUE)]
+$Name
+[1] "Akhila"
+
+$Year
+[1] 1996
+
+Using $:
+---------
+--> It is used for selecting elements from list.
+
+For eg:
+--------
+> details$Name
+[1] "Akhila"
+
+> details$Age
+[1] 20
+
+> details$Year
+[1] 1996
+
+IMPORTING DATA INTO R:
+----------------------------------
+--> The files that are imported into R can be of many types.
+--> For example, excel files, text files,. etc.
+--> In R Studio, we can use help() command for reading any file.
+
+For eg:
+--------
+> help("read.csv")
+>?read.csv
+
+Importing .CSV file:
+------------------------
+--> Save an excel file with .CSV extension.
+-->For reading the data, we should create an object and save into it.
+-->Use the following command in R Studio :
+
+> data1 <- read.csv("C:/Users/Innova/Desktop/excel.csv", header=TRUE, sep=",")
+> data1
+S.No   NAME   AGE  GENDER       DOB           PROFESSION
+1         Akhila     20        F               15/02/1996        Student
+2         Aditya     21        M              13/10/1995        Student
+3         Sai          21        F                15/08/1995        Student
+4         Suresh    20        M               11/02/1995        Student
+5         Neha       21        F                15/11/1995        Student
+
+Importing an Excel file:
+---------------------------
+--> Save an excel file with .xlsx extension.
+--> Use the following command in R Studio:
+
+> data2 <- read_excel("C:/Users/Innova/Desktop/excel.xlsx")
+> data2
+S.No   NAME   AGE  GENDER       DOB           PROFESSION
+1         Akhila     20        F               15/02/1996        Student
+2         Aditya     21        M              13/10/1995        Student
+3         Sai          21        F                15/08/1995        Student
+4         Suresh    20        M               11/02/1995        Student
+5         Neha       21        F                15/11/1995        Student
+
+Importing a text file:
+------------------------
+--> Save an excel file with .txt extension.
+--> Use the following command in R Studio:
+
+> data3 <- read.delim("C:/Users/Innova/Desktop/excel.txt", header=TRUE, sep="\t")
+> data3
+S.No   NAME   AGE  GENDER       DOB           PROFESSION
+1         Akhila     20        F               15/02/1996        Student
+2         Aditya     21        M              13/10/1995        Student
+3         Sai          21        F                15/08/1995        Student
+4         Suresh    20        M               11/02/1995        Student
+5         Neha       21        F                15/11/1995        Student
+
+*We can also use read.table() command for importing the data.
+
+Removing Objects:
+----------------------
+--> We use the "rm command" for removing the objects.
+
+For eg:
+--------
+>rm(data1)
+>rm(data2)
+
+* Dim command lets us know the dimensions of the data i.e the number of rows and the number of columns.
+
+For eg:
+--------
+> dim(data3)
+[1] 5 6
+
+
