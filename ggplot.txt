@@ -1,0 +1,68 @@
+GGPLOTS:
+-------------
+
+-->The plots are made up of aesthetics (size,shape,color) and geoms (points,lines,bars).
+-->We use the qplot() function for plotting the ggplot.
+
+For eg:
+--------
+>library(ggplot2)
+>qplot(age,Year,data=df)
+
+*We can modify the aesthetics by the following:
+
+> qplot(date,Year, data=df, color=age)
+
+--> Some times we want to add statistics which is some summary of the data.
+--> This can be done by adding a geom which have points to see the data and smooth to see the complex variables.
+
+For eg:
+--------
+> qplot(age,Year,data=df, geom=c("point","smooth"))
+
+Histograms with qplot():
+----------------------------
+--> We can make histograms by specifying only one variable in qplot.
+--> We use the following to plot a histogram :
+
+> qplot(Blood_group, data=df,fill=friends)
+
+*The argument fill is used for the color of the histograms.
+
+Facets:
+--------
+-->These are like panels.
+-->We can create separate plots using facets.
+
+For eg:
+--------
+> qplot(age, Year, data=df, facets= .~date)
+
+> qplot(date,age,data=df,facets=Year~.,binwidth=5)
+
+> qplot(date,data=df,facets=.~Year,binwidth=7)
+
+> qplot(Year,data=df,facets=age~.,binwidth=3)
+
+Density smooth:
+-------------------
+-->Another way of visualizing data is by density smooth.
+
+For eg:
+--------
+> qplot(age, data=df, geom="density")
+
+> qplot(age , data=df, geom = "density", color=Blood_group)
+
+Scatter plots with shape:
+----------------------------
+> qplot(friends,city, data=df, shape=Blood_group)
+
+Using lm method:
+---------------------
+-->This shows the linear relationship betwwen two variables.
+
+For eg:
+--------
+> qplot(Year,age, data=df,color= date, geom=c("point","smooth"), method="lm")
+
