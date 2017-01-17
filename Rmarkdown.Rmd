@@ -3,8 +3,9 @@ title: "Analysing and visualizing the Datasets using R MarkDown"
 author: ' By Akhila Kvns'
 date: "16 January, 2017"
 output:
-  html_document: default
+  word_document: default
   pdf_document: default
+  html_document: default
 Output: html_document
 ---
 #Introduction
@@ -29,7 +30,7 @@ summary(ChickWeight)
 head(ChickWeight)
 ```
 
-**2. Iris **
+**2. IRIS **
 
 Theiris dataset gives the measurements in centimeters of the variables sepal length and width and petal length and width, respectively, for 50 flowers from each of 3 species of iris. The species are Iris setosa, versicolor, and virginica.
 
