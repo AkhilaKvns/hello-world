@@ -1,0 +1,262 @@
+---
+title: "Analysing and visualizing the Datasets using R MarkDown"
+author: ' By Akhila Kvns'
+date: "16 January, 2017"
+output:
+  html_document: default
+  pdf_document: default
+Output: html_document
+---
+#Introduction
+
+This is an introduction to R Markdown. Here i am going to visualize the following datasets:
+
+* ChickWeight
+
+* Iris
+
+##Description
+
+**1. CHICKWEIGHT **
+
+The ChickWeight data frame has 250 rows and 4 columns fro an experiment on the effect of diet on early growth of chicks.
+
+
+```{r}
+library(datasets)
+data(ChickWeight)
+summary(ChickWeight)
+head(ChickWeight)
+```
+
+**2. Iris **
+
+Theiris dataset gives the measurements in centimeters of the variables sepal length and width and petal length and width, respectively, for 50 flowers from each of 3 species of iris. The species are Iris setosa, versicolor, and virginica.
+
+
+```{r}
+library(datasets)
+data(iris)
+summary(iris)
+head(iris)
+```
+
+Now we are using the following functions on the datsets.
+
+1. plot()
+
+2. hist()
+
+###Plot()
+
+* ChickWeight
+```{r}
+plot(ChickWeight$weight , ChickWeight$Diet)
+plot(ChickWeight$weight , ChickWeight$Chick)
+```
+
+* Iris
+
+```{r}
+plot(iris$Sepal.Length, iris$Sepal.Width)
+plot(iris$Petal.Length, iris$Petal.Width)
+```
+
+###Hist()
+
+* ChickWeight
+
+```{r}
+hist(ChickWeight$weight)
+hist(ChickWeight$Time)
+```
+
+* Iris
+
+```{r}
+iris_obs <- iris$Species == "setosa"
+setosa <- iris[iris_obs,]
+hist(setosa$Sepal.Length , breaks=10)
+hist(setosa$Petal.Length, breaks=5)
+```
+
+##Bar plot()
+
+Here we are using bar plot to plot our datsets
+
+* ChickWeight
+
+```{r}
+barplot(ChickWeight$weight, ChickWeight$Time)
+```
+
+* Iris
+
+```{r}
+barplot(iris$Sepal.Length, iris$Petal.Length)
+```
+
+##Box plot()
+
+Here we use box plot to plot both the datasets.
+
+1. ChickWeight
+
+```{r}
+boxplot(ChickWeight$Chick, ChickWeight$weight)
+```
+
+2. Iris
+
+```{r}
+boxplot(iris$Sepal.Width, iris$Petal.Width)
+```
+
+##Pairs()
+
+For finding the relation between two entities of a dataset, we use pairs() function.
+
+* ChickWeight
+
+```{r}
+pairs(ChickWeight)
+```
+
+* Iris
+
+```{r}
+pairs(iris)
+```
+
+Now, we use the par() function which is used for listing all the parameters and plotting multiple plots.
+
+##Par() for ChickWeight
+
+```{r}
+par(mfrow=c(1,2))
+plot(ChickWeight$weight, ChickWeight$Time)
+plot(ChickWeight$Time, ChickWeight$Chick)
+```
+
+##Par() for Iris
+
+```{r}
+par(mfcol=c(2,2))
+plot(iris$Sepal.Length, iris$Sepal.Width)
+plot(iris$Petal.Length, iris$Petal.Width)
+plot(iris$Sepal.Length, iris$Petal.Length)
+plot(iris$Sepal.Width, iris$Petal.Width)
+
+
+```
+
+#Using ggplots
+
+For plotting the ggplot we use qplot() function.
+
+1. ChickWeight
+
+```{r}
+library(ggplot2)
+qplot(weight, Time , data=ChickWeight)
+qplot(weight, Time, data=ChickWeight, color=Chick)
+qplot(weight, Time, data=ChickWeight, geom= c("point", "smooth"))
+```
+
+2. Iris
+
+```{r}
+library(ggplot2)
+qplot(Sepal.Length, Sepal.Width, data=iris)
+qplot(Petal.Length, Petal.Width, data=iris, color=Species)
+qplot(Sepal.Length, Petal.Width, data=iris, geom= c("point", "smooth"))
+```
+
+##Using histograms
+
+We have to specify only one variable for plotting a histogram in ggplot.
+
+* ChickWeight
+
+```{r}
+qplot(weight, data=ChickWeight, fill=Diet, binwidth=10)
+```
+
+* Iris
+
+```{r}
+qplot(Sepal.Length, data=iris, fill=Species, binwidth=20)
+```
+
+###Facets
+
+We create separate plots using facets.
+
+* ChickWeight
+
+```{r}
+qplot(weight, Diet, data=ChickWeight, facets= .~Time, binwidth=30)
+```
+
+* Iris
+
+```{r}
+qplot(Sepal.Length, Petal.Length, data=iris, facets=Sepal.Width~.)
+```
+
+##Density smooth
+
+* ChickWeight
+
+```{r}
+qplot(weight, data=ChickWeight, geom="density", color=Time)
+```
+
+* Iris
+
+```{r}
+qplot(Sepal.Width, data=iris, geom="density", color=Species)
+```
+
+##Scatter plots with shape
+
+* Scatter plot for ChickWeight.
+
+```{r}
+qplot(weight,Time, data=ChickWeight, shape=Chick)
+```
+
+In order to find out the missing values, we use the following:
+
+```{r}
+library(Amelia)
+library(mlbench)
+missmap(ChickWeight, legend=TRUE, col=c("blue","yellow"))
+```
+
+
+* Scatter plot for the dataset iris.
+
+```{r}
+qplot(Petal.Length, Petal.Width, data=iris, shape=Species)
+```
+
+
+##Fitting linear models
+
+ 1. ChickWeight
+ 
+```{r}
+Data1fit <- lm(weight ~ Time + Chick, data=ChickWeight)
+plot(Data1fit)
+```
+
+2. Iris
+
+```{r}
+Data2fit <- lm(Sepal.Length + Petal.Length ~ Sepal.Width + Petal.Width, data=iris)
+plot(Data2fit)
+```
+
+
+
